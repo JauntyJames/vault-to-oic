@@ -22,7 +22,7 @@ def call_oic(oicbaseurl, oicusername, oicuserpwd, dbuserpwd):
     return 'STATUS: SUCCESS' if r.status_code == 200 else 'STATUS: ERROR - ' + str(r.status_code)
 
 def get_secret(secret_ocid):
-    signer = oci.auth.signers.InstancePrincipalsSecurityTokenSigner()
+    signer = oci.auth.signers.get_resource_principals_signer()
     secrets_client = oci.secrets.SecretsClient(config={}, signer=signer)
     try:
         r = secrets_client.get_secret_bundle(secret_id=secret_ocid, stage="CURRENT")
